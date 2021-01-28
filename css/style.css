@@ -1,1 +1,11 @@
+ul{
+	display: inline-block;
+}
 
+.container {
+	display: inline-block;
+}
+
+li {
+	display: inline-block;
+}

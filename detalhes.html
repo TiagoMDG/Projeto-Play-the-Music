@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>O título da página</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+ </head>
+ <body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Play-The-Music</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="topportugal.html">Top de Portugal</a></li>
+        <li><a href="favoritos.html">Favoritos</a></li>
+      </ul>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" id="Idbarrapesquisa">
+        </div>
+        <button class="btn btn-default" id="idButton"><img src="imgs/search.svg"></button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h4>Pesquisa:</h4>
+    <ul id="Idpesquisa">
+      <div class="media-list-resultado"></div>
+    </ul>
+  </div>
+
+  <div class="container">
+    <div class="well">
+        <div class="panel-body">
+          <div class="media-group">
+            <ul class="media-list" id="Idsearch">
+              <li class="media">
+                <div class="media-left">
+                  <img id="image" class="media-object" alt="Album Cover">       
+                </div>
+                <div class="media-body">
+                <h4 class="title media-heading"></h4>
+                <p>
+                  <span class="playcount"></span>
+                  <span class="tipo"></span>
+                </p>
+                <button class="btn favoritos" id="idFavorito"><img src="imgs/heart.svg"></button>
+                <button class="btn detalhes" id="idDetalhes"><img src="imgs/detail.svg"></button>
+              </div>            
+            </li>
+          </ul>
+        </div>      
+      </div>    
+    </div>
+  </div>
+
+  <div id="Id">
+    <div>
+      <p id="IdArtistaDetalhes">
+      
+    </p>
+
+    <p id="IdNomeDetalhes">
+      
+    </p>
+    <p id="IdAlbumDetalhes">
+      
+    </p>
+    <p id="IdPlaycountDetalhes">
+    </p>
+    </div>
+    <div>
+      <img src="" id="IdImagemDetalhes">
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/script.js"></script>
+ </body>
+</html>
+
+  
