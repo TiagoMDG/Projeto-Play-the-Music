@@ -1,87 +1,75 @@
 <!DOCTYPE html>
 <html>
- <head>
- 	<meta charset="UTF-8">
- 	<title>O título da página</title>
- 	<meta name="description" content="">
- 	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 	<link rel="stylesheet" href="css/style.css">
- </head>
- <body>
-
-	<nav class="navbar navbar-inverse">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="index.html">Play-The-Music</a>
-	    </div>
-	    <ul class="nav navbar-nav">
-	      <li><a href="index.html">Home</a></li>
-	      <li><a href="topportugal.html">Top de Portugal</a></li>
-	      <li class="active"><a href="favoritos.html">Favoritos</a></li>
-	    </ul>
-	    <form class="navbar-form navbar-right" action="/action_page.php">
-	      <div class="form-group">
-	        <input type="text" class="form-control" placeholder="Search">
-	      </div>
-	      <button class="btn btn-default" id="idButton"><img src="imgs/search.svg"></button>
-	    </form>
-	  </div>
-	</nav>
-
- 	<!-- Conteudo da pagina -->
- 	<div class="container">
- 		<p>TOP 10 ARTISTS PORTUGAL</p>
- 		<div class="panel-body">
-			<div class="media-group">
-				<ul class="media-list-portugal">
-					<li class="media">
-						<!-- <div class="media-left">
-							<a href="" class="thumbnail">
-								<img class="media-object" id="image">
-							</a>						
-						</div> -->
-						<div class="media-body">
-							<h4 class="artist media-heading"></h4>
-							<p>
-								<span class="listeners"></span>
-								<span class="tipo"></span>
-							</p>
-						</div>						
-					</li>
-				</ul>
-			</div>			
-		</div>		
-	</div> 
-
-	<div class="container">
- 		<p>DEMON HUNTER TOP 10 TRACKS</p>
- 		<div class="panel-body">
-			<div class="media-group">
-				<ul class="media-list">
-					<li class="mediatop">
-						<!-- <div class="media-left">
-							<a href="" class="thumbnail">
-								<img class="media-object" id="image">
-							</a>						
-						</div> -->
-						<div class="media-body">
-							<h4 class="title media-heading"></h4>
-							<p>
-								<span class="playcount"></span>
-								<span class="tipo"></span>
-							</p>
-						</div>						
-					</li>
-				</ul>
-			</div>			
-		</div>		
-	</div>
-
-	<script type="text/javascript" src="js/script.js"></script>
- </body>
+   <head>
+      <meta charset="UTF-8">
+      <title>O título da página</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <body>
+      <nav class="navbar navbar-inverse">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="index.html">Play-The-Music</a>
+            </div>
+            <ul class="nav navbar-nav">
+               <li><a href="index.html">Home</a></li>
+               <li><a href="topportugal.html">Top de Portugal</a></li>
+               <li class="active"><a href="favoritos.html">Favoritos</a></li>
+            </ul>
+            <div class="navbar-form navbar-right">
+               <input type="text" class="form-control" placeholder="Search" id="Idbarrapesquisa">
+               <button class="btn btn-default" id="idButton"><img src="imgs/search.svg"></button>
+            </div>
+         </div>
+      </nav>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-6">
+               <h4>Favoritos:</h4>
+               <div class="well">
+                  <div class="panel-body">
+                     <div class="media-group">
+                        <ul class="media-list" id="IdListafavoritos">
+                           <li class="media">
+                              <div class="media-left">
+                                 <img id="image" class="media-object" alt="Album Cover"> 			
+                              </div>
+                              <div class="media-body">
+                                 <h4 class="title media-heading"></h4>
+                                 <p>
+                                    <span class="playcount"></span>
+                                    <span class="title"></span>
+                                 </p>
+                                 <button class="btn favoritos" id="idFavorito"><img src="imgs/heart.svg"></button>
+                                 <button class="btn detalhes" id="idDetalhes"><img src="imgs/detail.svg"></button>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-6">
+               <h4>Pesquisa:</h4>
+               <div class="media-list-resultado"></div>
+               <div class="well">
+                  <div class="panel-body">
+                     <div class="media-group">
+                        <ul class="media-list-resultado" id="Idpesquisa">
+                           <div id="Idsearch">
+                           </div>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script type="text/javascript" src="js/script.js"></script>
+   </body>
 </html>
-
- 	
