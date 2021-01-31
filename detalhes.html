@@ -2,7 +2,7 @@
 <html>
    <head>
       <meta charset="UTF-8">
-      <title>O título da página</title>
+      <title>Detalhes</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -27,17 +27,33 @@
             </div>
          </div>
       </nav>
-      <div class="container">
-         <h4>Pesquisa:</h4>
-         <ul id="Idpesquisa">
-            <div class="media-list-resultado"></div>
-         </ul>
-      </div>
-      <div class="container">
-         <div class="well">
-            <div class="panel-body">
+      <div class="container-fluid">
+      <div class="row">
+         <div class="col-lg-6">
+            <h4>Detalhes da música:</h4>
+            <div class="well">
+               <div id="Id">
+                  <div>
+                     <p id="IdArtistaDetalhes">
+                     </p>
+                     <p id="IdNomeDetalhes">
+                     </p>
+                     <p id="IdAlbumDetalhes">
+                     </p>
+                     <p id="IdPlaycountDetalhes">
+                     </p>
+                  </div>
+                  <div>
+                     <img src="" id="IdImagemDetalhes">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <h4>Pesquisa:</h4>
+            <div class="well">
                <div class="media-group">
-                  <ul class="media-list" id="Idsearch">
+                  <ul id="Idsearch">
                      <li class="media">
                         <div class="media-left">
                            <img id="image" class="media-object" alt="Album Cover">       
@@ -55,21 +71,6 @@
                   </ul>
                </div>
             </div>
-         </div>
-      </div>
-      <div id="Id">
-         <div>
-            <p id="IdArtistaDetalhes">
-            </p>
-            <p id="IdNomeDetalhes">
-            </p>
-            <p id="IdAlbumDetalhes">
-            </p>
-            <p id="IdPlaycountDetalhes">
-            </p>
-         </div>
-         <div>
-            <img src="" id="IdImagemDetalhes">
          </div>
       </div>
       <script type="text/javascript" src="js/script.js"></script>

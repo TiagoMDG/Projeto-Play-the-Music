@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
    <head>
       <meta charset="UTF-8">
-      <title>O título da página</title>
+      <title>Favoritos</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,7 +11,9 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="css/style.css">
    </head>
+
    <body>
+
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
@@ -27,6 +30,7 @@
             </div>
          </div>
       </nav>
+
       <div class="container-fluid">
          <div class="row">
             <div class="col-lg-6">
@@ -42,8 +46,8 @@
                               <div class="media-body">
                                  <h4 class="title media-heading"></h4>
                                  <p>
-                                    <span class="playcount"></span>
-                                    <span class="title"></span>
+                                    <span id="IdFavoritoTrack"></span>
+                                    <span id="IdFavoritoArtista"></span>
                                  </p>
                                  <button class="btn favoritos" id="idFavorito"><img src="imgs/heart.svg"></button>
                                  <button class="btn detalhes" id="idDetalhes"><img src="imgs/detail.svg"></button>
@@ -54,6 +58,7 @@
                   </div>
                </div>
             </div>
+
             <div class="col-lg-6">
                <h4>Pesquisa:</h4>
                <div class="media-list-resultado"></div>
@@ -70,6 +75,9 @@
             </div>
          </div>
       </div>
+
       <script type="text/javascript" src="js/script.js"></script>
+
    </body>
+
 </html>

@@ -97,7 +97,7 @@ function carregarDetalhes() {
     });
 }
 
-function detalhes(track, artista) {
+function detalhes(artista, track) {
     location.href = "detalhes.html";
     if (typeof(Storage) !== "undefined") {
         webstorage = {
@@ -113,26 +113,28 @@ function detalhes(track, artista) {
 function carregarFavoritos() {
     favoritos = JSON.parse(localStorage.getItem('favoritos'));
     if (typeof(localStorage.favoritos) !== "undefined") {
-        $.ajax({
+        favoritos.forEach(function(result) {
+
+            $.ajax({
             method: "GET",
             url: "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + chave + "&artist=" + favoritos.artista + "&limit=1&track=" + favoritos.track + "&format=json"
             // http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=5b5c0afd0b275d029ef54d33c99d7e1b&artist=Cher&limit=1&track=Believe&format=json          
         }).done(function(info) {
-            console.log(info);
             var liMedia = cloneMedia.clone();
-            $('.title', liMedia).text(favoritos.track);
-            $('.playcount', liMedia).text(favoritos.artista);
-            $('#image', liMedia).attr('src', info.track.album.image[2]["#text"]);
-            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarFavoritos("' + favoritos.track + '","' + favoritos.artist + '")');
+            $('#IdFavoritoTrack', liMedia).text(result);
+            
+            //getImagem(chave, result.artist, result.name, liMedia, '#image');
+            //$('#image', liMedia).attr('src', info.track.album.image[2]["#text"]);
+            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarFavoritos("' + favoritos.artist + '","' + favoritos.track  + '")');
             $('#IdListafavoritos').append(liMedia);
         })
-
+        }) 
     }
 }
 
-function adicionarFavoritos(track, artista) {
+function adicionarFavoritos(artista, track) {
     if (typeof(Storage) !== "undefined") {
-        var listaFavoritos = [track, artista];
+        var listaFavoritos = [artista, track];
         var detetor;
         if (localStorage.getItem("favoritos") != null) {
             console.log("if");
@@ -149,11 +151,18 @@ function adicionarFavoritos(track, artista) {
     }
 }
 
-if (window.location.pathname=='index.html') {
-    $(document).ready(toptracks());
-}
+var pagina = document.getElementsByTagName("title")[0]["text"];
 
-$(document).ready(toptracks());
-$(document).ready(topportugal());
-$(document).ready(carregarDetalhes());
-$(document).ready(carregarFavoritos());
+if (pagina == "Index") {
+    toptracks();
+    }
+
+if (pagina == "Top 10 de Portugal") {
+    topportugal();
+}
+if (pagina == "Detalhes") {
+    carregarDetalhes();
+}
+if (pagina == "Favoritos") {
+    carregarFavoritos();
+}
