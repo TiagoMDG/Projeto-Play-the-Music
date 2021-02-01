@@ -1,7 +1,7 @@
 'use strict';
 var chave = "5b5c0afd0b275d029ef54d33c99d7e1b";
 var pais = "Portugal"
-var artista = "Demon Hunter"
+var artista;
 var webstorage = localStorage;
 var favoritos = new Array;
 var track;
@@ -20,11 +20,11 @@ function topportugal() {
     }).done(function(resultado) {
         resultado.tracks.track.forEach(function(result) {
             var liMedia = cloneMedia.clone();
-            $('.artist', liMedia).text(result.name);
-            $('.listeners', liMedia).text(result.listeners);
+            $('.track', liMedia).text(result.name);
+            $('.artist', liMedia).text(result.artist.name);
             getImagem(chave, result.artist.name, result.name, liMedia, '#image');
-            $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + result.name + '","' + result.artist.name + '")');
-            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarFavoritos("' + result.name + '","' + result.artist.name + '")');
+            $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + result.artist.name + '","' + result.name + '")');
+            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarOuRemoverFavoritos("' + result.name + '","' + result.artist.name + '")');
             $('.media-list-portugal').append(liMedia);
         })
     });
@@ -33,15 +33,15 @@ function topportugal() {
 function toptracks() {
     $.ajax({
         method: "GET",
-        url: "http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=" + artista + "&api_key=" + chave + "&limit=10&format=json"
+        url: "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=itzgunnyz&limit=9&api_key=" + chave + "&format=json"
     }).done(function(resultado) {
-        resultado.toptracks.track.forEach(function(result) {
+        resultado.recenttracks.track.forEach(function(result) {
             var liMedia = cloneMedia.clone();
-            $('.title', liMedia).text(result.name);
-            $('.playcount', liMedia).text(result.playcount);
-            getImagem(chave, result.artist.name, result.name, liMedia, '#image');
-            $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + result.name + '","' + result.artist.name + '")');
-            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarFavoritos("' + result.name + '","' + result.artist.name + '")');
+            $('.track', liMedia).text(result.name);
+            $('.artist', liMedia).text(result.artist['#text']);
+            getImagem(chave, result.artist['#text'], result.name, liMedia, '#image');
+            $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + result.artist['#text'] + '","' + result.name + '")');
+            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarOuRemoverFavoritos("' + result.name + '","' + result.artist['#text'] + '")');
             $('.media-list').append(liMedia);
         })
     });
@@ -51,7 +51,6 @@ function getImagem(chave, artista, track, liMedia, escrita) {
     $.ajax({
         method: "GET",
         url: "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + chave + "&artist=" + artista + "&limit=1&track=" + track + "&format=json"
-        // http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=5b5c0afd0b275d029ef54d33c99d7e1b&artist=Cher&limit=1&track=Believe&format=json          
     }).done(function(info) {
         if (typeof(info.track.album) !== "undefined") {
             var imgurl = info.track.album.image[1]["#text"];
@@ -69,11 +68,11 @@ function tracksearch() {
     }).done(function(resultado) {
         resultado.results.trackmatches.track.forEach(function(result) {
             var liMedia = cloneMedia.clone();
-            $('.title', liMedia).text(result.name);
-            $('.playcount', liMedia).text(result.playcount);
+            $('.track', liMedia).text(result.name);
+            $('.artist', liMedia).text(result.artist);
             getImagem(chave, result.artist, result.name, liMedia, '#image');
-            $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + result.name + '","' + result.artist + '")');
-            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarFavoritos("' + result.name + '","' + result.artist + '")');
+            $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + result.artist + '","' + result.name + '")');
+            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarOuRemoverFavoritos("' + result.name + '","' + result.artist + '")');
             $('#Idsearch').append(liMedia);
         })
     });
@@ -84,16 +83,15 @@ function carregarDetalhes() {
     $.ajax({
         method: "GET",
         url: "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + chave + "&artist=" + webstorage.artista + "&limit=1&track=" + webstorage.track + "&format=json"
-        // http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=5b5c0afd0b275d029ef54d33c99d7e1b&artist=Cher&limit=1&track=Believe&format=json          
     }).done(function(info) {
-        console.log(localStorage.getItem('webstorage'));
-        $("#IdArtistaDetalhes").text(info.track.artist.name);
-        $("#IdNomeDetalhes").text(info.track.name);
-        $("#IdPlaycountDetalhes").text(info.playcount);
-        if (typeof("info.track.album") !== "undefined") {
-            $("#IdAlbumDetalhes").text(info.track.album.title);
+        var liMedia = cloneMedia.clone();
+        $("#IdArtistaDetalhes").text("Artista: " + info.track.artist.name);
+        $("#IdNomeDetalhes").text("Track: " + info.track.name);
+        if (typeof(info.track.album) !== "undefined") {
+            $("#IdAlbumDetalhes").text("Album: " + info.track.album.title);
             $("#IdImagemDetalhes").attr("src", info.track.album.image[2]["#text"]);
         }
+        $('.btn.favoritos', '.well').attr('onclick', 'adicionarOuRemoverFavoritos("' + info.track.name + '","' + info.track.artist.name + '")');
     });
 }
 
@@ -113,37 +111,65 @@ function detalhes(artista, track) {
 function carregarFavoritos() {
     favoritos = JSON.parse(localStorage.getItem('favoritos'));
     if (typeof(localStorage.favoritos) !== "undefined") {
+        var i = 0;
         favoritos.forEach(function(result) {
-
             $.ajax({
-            method: "GET",
-            url: "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + chave + "&artist=" + favoritos.artista + "&limit=1&track=" + favoritos.track + "&format=json"
-            // http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=5b5c0afd0b275d029ef54d33c99d7e1b&artist=Cher&limit=1&track=Believe&format=json          
-        }).done(function(info) {
-            var liMedia = cloneMedia.clone();
-            $('#IdFavoritoTrack', liMedia).text(result);
-            
-            //getImagem(chave, result.artist, result.name, liMedia, '#image');
-            //$('#image', liMedia).attr('src', info.track.album.image[2]["#text"]);
-            $('.btn.favoritos', liMedia).attr('onclick', 'adicionarFavoritos("' + favoritos.artist + '","' + favoritos.track  + '")');
-            $('#IdListafavoritos').append(liMedia);
+                method: "GET",
+                url: "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + chave + "&artist=" + result[0] + "&limit=1&track=" + result[1] + "&format=json"
+            }).done(function(info) {
+                if (info.error !== 6) {
+                    var liMedia = cloneMedia.clone();
+                    $('.track', liMedia).text(result[0]);
+                    $('.artist', liMedia).text(result[1]);
+                    getImagem(chave, info.track.name, info.track.artist.name, liMedia, '#image');
+                    $('.btn.favoritos', liMedia).attr('onclick', 'adicionarOuRemoverFavoritos("' + info.track.artist.name + '","' + info.track.name + '")');
+                    $('.btn.detalhes', liMedia).attr('onclick', 'detalhes("' + info.track.name + '","' + info.track.artist.name + '")');
+                    $('#IdListafavoritos').append(liMedia);
+                }
+            })
+            i++;
         })
-        }) 
     }
 }
 
-function adicionarFavoritos(artista, track) {
+function onMouseEnter(button) {
+    if (localStorage.getItem("favoritos") == null){
+        return;
+    }
+    var temp = button.parentNode.onclick.toString();
+    var res = temp.split("\"");
+    favoritos = JSON.parse(localStorage.getItem('favoritos'));
+    favoritos.forEach(function(result) {
+        if (result[0].toUpperCase() == res[1].toUpperCase()) {
+            button.src = "imgs/heartBroken.png";
+            return;
+        }
+    })
+}
+
+function onMouseLeave(button) {
+    button.src = "imgs/heart.svg";
+}
+
+function adicionarOuRemoverFavoritos(artista, track) {
     if (typeof(Storage) !== "undefined") {
         var listaFavoritos = [artista, track];
-        var detetor;
         if (localStorage.getItem("favoritos") != null) {
-            console.log("if");
+            for (var index = 0; index < favoritos.length; index++) {
+                if (favoritos[index][0].toUpperCase() == listaFavoritos[0].toUpperCase()) {
+                    favoritos.splice(index, 1);
+                    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+                    return;
+                }
+            }
             favoritos = JSON.parse(localStorage.getItem('favoritos'));
-            
             favoritos.push(listaFavoritos);
         } else {
-            console.log("else");
             favoritos = listaFavoritos;
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+            favoritos = JSON.parse(localStorage.getItem('favoritos'));
+            favoritos.push(listaFavoritos);
+            favoritos.splice(0, 2);
         }
         localStorage.setItem('favoritos', JSON.stringify(favoritos));
     } else {
@@ -155,7 +181,7 @@ var pagina = document.getElementsByTagName("title")[0]["text"];
 
 if (pagina == "Index") {
     toptracks();
-    }
+}
 
 if (pagina == "Top 10 de Portugal") {
     topportugal();

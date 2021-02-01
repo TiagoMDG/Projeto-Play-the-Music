@@ -27,7 +27,6 @@
             </div>
          </div>
       </nav>
-
       <div class="container-fluid">
          <div class="row">
             <div class="col-lg-6">
@@ -43,12 +42,11 @@
                                  </div>
                               </div>
                               <div class="media-body">
-                                 <h4 class="artist media-heading"></h4>
+                                 <h4 class="track media-heading"></h4>
                                  <p>
-                                    <span class="listeners"></span>
-                                    <span class="tipo"></span>
+                                    <span class="artist"></span>
                                  </p>
-                                 <button class="btn favoritos" id="idFavorito"><img src="imgs/heart.svg"></button>
+                                 <button class="btn favoritos" id="idFavorito"><img src="imgs/heart.svg" onmouseenter="onMouseEnter(this)" onmouseleave="onMouseLeave(this)"></button>
                                  <button class="btn detalhes" id="idDetalhes"><img src="imgs/detail.svg"></button>
                               </div>
                            </li>
@@ -57,7 +55,6 @@
                   </div>
                </div>
             </div>
-
             <div class="col-lg-6">
                <h4>Pesquisa:</h4>
                <div class="media-list-resultado"></div>
@@ -74,7 +71,6 @@
             </div>
          </div>
       </div>
-
       <script type="text/javascript" src="js/script.js"></script>
    </body>
 </html>
